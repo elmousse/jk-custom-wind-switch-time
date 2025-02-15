@@ -5,7 +5,7 @@ The mod allows you to change the period of the switch wind block.
 In the level_settings.xml file, in the Tags scope, just add the following line:
 ```xml
 <Tags>
-    <string>CustomWindSwitchTime=(1,2;2,12.5)</string>
+    <string>CustomWindSwitch=(1,2;2,12.5)</string>
 </Tags>
 ```
 For example, for screen 1 you will get 2 seconds period, and for screen 2 you will get 12.5 seconds period.

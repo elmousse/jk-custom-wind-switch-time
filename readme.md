@@ -8,7 +8,7 @@ In the level_settings.xml file, in the Tags scope, just add the following line (
     <string>CustomWindSwitch=(1,2,2),(2,12.5,5,right)</string>
 </Tags>
 ```
-For example, for screen 1 you will get 2 seconds left, 2 seconds right. And for screen 2, you will get 12.5 seconds wind right, and 5 seconds of no wind.
+On this example, for screen 1 you will get 2 seconds left, 2 seconds right. And for screen 2, you will get 12.5 seconds wind right, and 5 seconds of no wind.
 
 It is a list (delimited by ',') of tuple.
 

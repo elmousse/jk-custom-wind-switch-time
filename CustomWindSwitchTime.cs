@@ -26,6 +26,11 @@ namespace CustomWindSwitch
         {
             _freqs = freqsInfo;
         }
+        
+        public void Empty()
+        {
+            _freqs.Clear();
+        }
 
         public double CurrentFrequency {
             get

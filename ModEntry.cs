@@ -9,12 +9,16 @@ namespace CustomWindSwitch
     [JumpKingMod("McOuille.CustomWindSwitch")]
     public static class ModEntry
     {
-        [OnLevelStart]
-        public static void OnLevelStart()
+        [BeforeLevelLoad]
+        public static void BeforeLevelLoad()
         {
             var harmony = new Harmony("McOuille.CustomWindSwitch");
             harmony.PatchAll();
-            
+        }
+        
+        [OnLevelStart]
+        public static void OnLevelStart()
+        {
             var tag = GetTag();
             
             if (String.IsNullOrEmpty(tag))
@@ -30,6 +34,12 @@ namespace CustomWindSwitch
             }
             
             CustomWindSwitchTime.Instance.Init(freqs);
+        }
+        
+        [OnLevelUnload]
+        public static void OnLevelUnload()
+        {
+            CustomWindSwitchTime.Instance.Empty();
         }
         
         private static string GetTag()

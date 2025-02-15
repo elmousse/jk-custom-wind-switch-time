@@ -4,7 +4,7 @@ using System.Reflection.Emit;
 using HarmonyLib;
 using JumpKing;
 
-namespace FasterWindSwitch
+namespace CustomWindSwitch
 {
     [HarmonyPatch(typeof(WindManager), "CurrentVelocityRaw", MethodType.Getter)]
     public static class WindManagerPatch

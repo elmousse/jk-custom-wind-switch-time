@@ -1,4 +1,4 @@
-# JK Custom wind switch time mod
+# JK Custom wind switch mod
 
 The mod allows you to change the period of the switch wind block.
 

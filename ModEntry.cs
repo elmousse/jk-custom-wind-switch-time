@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using HarmonyLib;
 using JumpKing;
 using JumpKing.Mods;
 
-namespace FasterWindSwitch
+namespace CustomWindSwitch
 {
     [JumpKingMod("McOuille.CustomWindSwitch")]
     public static class ModEntry
@@ -13,7 +12,8 @@ namespace FasterWindSwitch
         [OnLevelStart]
         public static void OnLevelStart()
         {
-            Debugger.Launch();
+            var harmony = new Harmony("McOuille.CustomWindSwitch");
+            harmony.PatchAll();
             
             var tag = GetTag();
             
@@ -30,9 +30,6 @@ namespace FasterWindSwitch
             }
             
             CustomWindSwitchTime.Instance.Init(freqs);
-            
-            var harmony = new Harmony("McOuille.FasterWindSwitch");
-            harmony.PatchAll();
         }
         
         private static string GetTag()
@@ -43,7 +40,7 @@ namespace FasterWindSwitch
             }
             foreach (var item in Game1.instance.contentManager.level.Info.Tags)
             {
-                if (!item.StartsWith("CustomWindSwitchTime="))
+                if (!item.StartsWith("CustomWindSwitch="))
                 {
                     continue;
                 }

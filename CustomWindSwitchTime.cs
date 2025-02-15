@@ -1,9 +1,7 @@
 using System.Collections.Generic;
-using EntityComponent;
 using JumpKing.Level;
-using JumpKing.Player;
 
-namespace FasterWindSwitch
+namespace CustomWindSwitch
 {
     public class CustomWindSwitchTime
     {
@@ -21,7 +19,7 @@ namespace FasterWindSwitch
             }
         }
         
-        private Dictionary<int, float> _freqs;
+        private Dictionary<int, float> _freqs = new Dictionary<int, float>();
         private const float BASEFREQ = 0.481248856f;
 
         public void Init(Dictionary<int, float> freqsInfo)

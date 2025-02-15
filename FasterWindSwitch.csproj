@@ -8,8 +8,8 @@
         <ProjectGuid>{5E920713-1A1B-4EAF-908D-3EF703D553CE}</ProjectGuid>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>FasterWindSwitch</RootNamespace>
-        <AssemblyName>FasterWindSwitch</AssemblyName>
+        <RootNamespace>CustomWindSwitch</RootNamespace>
+        <AssemblyName>CustomWindSwitch</AssemblyName>
         <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>

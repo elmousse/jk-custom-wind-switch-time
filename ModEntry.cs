@@ -43,7 +43,7 @@ namespace FasterWindSwitch
             }
             foreach (var item in Game1.instance.contentManager.level.Info.Tags)
             {
-                if (!item.StartsWith("CustomWindSwitchTime"))
+                if (!item.StartsWith("CustomWindSwitchTime="))
                 {
                     continue;
                 }

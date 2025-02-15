@@ -15,7 +15,12 @@ namespace FasterWindSwitch
 
             for (var i = 0; i < codes.Count; i++)
             {
-                if (codes[i].opcode != OpCodes.Ldc_R8 || (double)codes[i].operand != 0.4812488555908203)
+                if (codes[i].opcode != OpCodes.Ldc_R4)
+                {
+                    continue;
+                }
+
+                if ((float)codes[i].operand != 0.481248856f)
                 {
                     continue;
                 }

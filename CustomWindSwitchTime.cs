@@ -21,14 +21,12 @@ namespace FasterWindSwitch
             }
         }
         
-        private Dictionary<int, double> _freqs;
-        private double _lastFreq;
-        private const double BASEFREQ = 0.4812488555908203;
+        private Dictionary<int, float> _freqs;
+        private const float BASEFREQ = 0.481248856f;
 
-        public void Init(Dictionary<int, double> freqsInfo)
+        public void Init(Dictionary<int, float> freqsInfo)
         {
             _freqs = freqsInfo;
-            _lastFreq = BASEFREQ;
         }
 
         public double CurrentFrequency {
@@ -39,7 +37,6 @@ namespace FasterWindSwitch
                 {
                     return BASEFREQ;
                 }
-                _lastFreq = _freqs[currentScreen];
                 return _freqs[currentScreen];
             }
         }

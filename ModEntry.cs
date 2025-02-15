@@ -58,9 +58,9 @@ namespace FasterWindSwitch
             return null;
         }
         
-        private static Dictionary<int, double> ToFreqs(string tag)
+        private static Dictionary<int, float> ToFreqs(string tag)
         {
-            var freqs = new Dictionary<int, double>();
+            var freqs = new Dictionary<int, float>();
             var list = tag.Split(';');
             foreach (var item in list)
             {
@@ -73,11 +73,11 @@ namespace FasterWindSwitch
                 {
                     return null;
                 }
-                if (!double.TryParse(pair[1], out var value))
+                if (!float.TryParse(pair[1], out var value))
                 {
                     return null;
                 }
-                freqs[key-1] = (2 * Math.PI) / value;
+                freqs[key-1] = (float)((2 * Math.PI) / value);
             }
             return freqs;
         }

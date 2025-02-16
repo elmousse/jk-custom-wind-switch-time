@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using HarmonyLib;
 using JumpKing;
 using JumpKing.Mods;
@@ -9,10 +10,13 @@ namespace CustomWindSwitch
     [JumpKingMod("McOuille.CustomWindSwitch")]
     public static class ModEntry
     {
+        private const string TAG = "CustomWindSwitch";
+        
         [BeforeLevelLoad]
         public static void BeforeLevelLoad()
         {
             var harmony = new Harmony("McOuille.CustomWindSwitch");
+            Harmony.DEBUG = true;
             harmony.PatchAll();
         }
         
@@ -26,20 +30,25 @@ namespace CustomWindSwitch
                 return;
             }
             
-            var freqs = ToFreqs(tag);
+            var freqs = ToWindParamsDic(tag);
             
-            if (freqs?.Count == 0)
+            if (freqs == null)
             {
                 return;
             }
             
-            CustomWindSwitchTime.Instance.Init(freqs);
+            if (freqs.Count == 0)
+            {
+                return;
+            }
+            
+            CustomWindSwitchApi.Instance.Init(freqs);
         }
         
         [OnLevelUnload]
         public static void OnLevelUnload()
         {
-            CustomWindSwitchTime.Instance.Empty();
+            CustomWindSwitchApi.Instance.Empty();
         }
         
         private static string GetTag()
@@ -50,43 +59,69 @@ namespace CustomWindSwitch
             }
             foreach (var item in Game1.instance.contentManager.level.Info.Tags)
             {
-                if (!item.StartsWith("CustomWindSwitch="))
+                if (!item.StartsWith(TAG + "=(") || !item.EndsWith(")"))
                 {
                     continue;
                 }
-                var start = item.IndexOf('(');
-                var end = item.LastIndexOf(')');
-        
-                if (start >= 0 && end > start)
-                {
-                    return item.Substring(start + 1, end - start - 1);
-                }
+                return item.Substring(TAG.Length + 2, item.Length - TAG.Length - 3);
             }
             return null;
         }
-        
-        private static Dictionary<int, float> ToFreqs(string tag)
+
+        private static Dictionary<int, WindParams> ToWindParamsDic(string tag)
         {
-            var freqs = new Dictionary<int, float>();
-            var list = tag.Split(';');
-            foreach (var item in list)
+            var windParamsDic = new Dictionary<int, WindParams>();
+            var windInfos = System.Text.RegularExpressions.Regex.Split(tag, @"\)\s*,\s*\(");
+            
+            foreach (var windInfo in windInfos)
             {
-                var pair = item.Split(',');
-                if (pair.Length != 2)
+                var windInfoSplit = windInfo.Split(',');
+                if (windInfoSplit.Length != 5 && windInfoSplit.Length != 3)
                 {
                     return null;
                 }
-                if (!int.TryParse(pair[0], out var key))
+                
+                if (!int.TryParse(windInfoSplit[0], out var key))
                 {
                     return null;
                 }
-                if (!float.TryParse(pair[1], out var value))
+                
+                if (!float.TryParse(windInfoSplit[1], out var leftWindTime))
                 {
                     return null;
                 }
-                freqs[key-1] = (float)((2 * Math.PI) / value);
+                
+                if (!float.TryParse(windInfoSplit[2], out var rightWindTime))
+                {
+                    return null;
+                }
+                
+                var leftWindIntensity = 1f;
+                var rightWindIntensity = 1f;
+                
+                if (windInfoSplit.Length == 5)
+                {
+                    if (!float.TryParse(windInfoSplit[3], out leftWindIntensity))
+                    {
+                        return null;
+                    }
+                    
+                    if (!float.TryParse(windInfoSplit[4], out rightWindIntensity))
+                    {
+                        return null;
+                    }
+                }
+                
+                windParamsDic[key-1] = new WindParams
+                {
+                    LeftWindTime = leftWindTime,
+                    RightWindTime = rightWindTime,
+                    LeftWindIntensity = leftWindIntensity,
+                    RightWindIntensity = rightWindIntensity
+                };
             }
-            return freqs;
+            
+            return windParamsDic;
         }
     }
 }

@@ -22,7 +22,4 @@ For custom velocity, you need to provide both sides.
 - (optional float) left velocity: multiplier on the base velocity of the wind (base depend on the wind block you put on the map).
 - (optional float) right velocity: same as prev.
 
-You need to add the 2 ways wind blocks inside the level.xnb file, on the corresponding screens.
-
-Lil tips:
-- velocity to 0 will stop the wind on 1 specific side
+> You need to add the 2 ways wind blocks inside the level.xnb file, on the corresponding screens.

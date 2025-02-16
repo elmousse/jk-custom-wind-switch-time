@@ -17,6 +17,7 @@ Parameters of the tuple:
 - (int) screen index: the screen index where the wind block is (first screen is 1).
 - (float) left time: the time of the wind block blowing left.
 - (float) right time: the time of the wind block blowing right.
+
 For custom velocity, you need to provide both sides.
 - (optional float) left velocity: multiplier on the base velocity of the wind (base depend on the wind block you put on the map).
 - (optional float) right velocity: same as prev.
